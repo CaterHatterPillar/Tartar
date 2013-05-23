@@ -6,5 +6,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Tartar.h" />
+    <ClInclude Include="..\src\UStar.h" />
   </ItemGroup>
 </Project>
