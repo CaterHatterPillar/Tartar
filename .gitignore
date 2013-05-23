@@ -1,0 +1,41 @@
+[Bb]in
+[Oo]bj
+sql
+TestResults
+*.Cache
+ClientBin
+stylecop.*
+~$*
+*.dbmdl
+Generated_Code #added for RIA/Silverlight projects
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Files
+*.bsc
+*.exe
+*.opensdf
+*.sdf
+*.tlog
+*.obj
+*.pdb
+*.cso
+*.lastcodeanalysissucceeded
+*.etl
+*.krn
+*.idb
+*.ilk
+*.log
+*.lastbuildstate
+*.dll
+*.lib
+*.vsglog
+*.dgml
+*.bsc
+*.vspx
+*.suo
+*/log.txt
