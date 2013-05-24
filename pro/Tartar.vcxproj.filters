@@ -2,10 +2,29 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\Tartar.cpp" />
+    <ClCompile Include="..\src\Tarchive.cpp">
+      <Filter>Tarchive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Tartape.cpp">
+      <Filter>Tartape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Tartar.h" />
     <ClInclude Include="..\src\UStar.h" />
+    <ClInclude Include="..\src\Tarchive.h">
+      <Filter>Tarchive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Tartape.h">
+      <Filter>Tartape</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Tarchive">
+      <UniqueIdentifier>{04b70a16-b02d-42d1-a8c7-431d9c8d4c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tartape">
+      <UniqueIdentifier>{672cd622-e58b-446e-85e3-a2d42c9cf730}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

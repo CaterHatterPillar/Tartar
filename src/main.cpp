@@ -6,8 +6,8 @@
 int main() {
 	bool successDemo = false;
 	
-	std::string tarName = "demo.tar";
-	Tartar::Tartar* tartar = new Tartar::Tartar(tarName.c_str());
+	std::string tarName = "../demo.tar";
+	Tartar::Tarchive* tartar = new Tartar::Tarchive(tarName.c_str());
 	successDemo = tartar->init(); // Call me to initialize tar archive.
 	if( successDemo==true ) {
 		std::string demoFile = "../demo.txt";

@@ -1,20 +1,16 @@
 #include <fstream>
 
 #include <UStar.h>
-#include <Tartar.h>
-
-#ifdef WINDOWS
-#define _CRT_SECURE_NO_WARNINGS
-#endif //WINDOWS
+#include <Tarchive.h>
 
 namespace Tartar {
-	Tartar::Tartar( const char* p_tarName ) : m_tarName( p_tarName ) {
+	Tarchive::Tarchive( const char* p_tarName ) : m_tarName( p_tarName ) {
 		m_prevError = PrevErrors_NA;
 
 		m_strmInput	= nullptr;
 		m_strmTar	= nullptr;
 	}
-	Tartar::~Tartar() {
+	Tarchive::~Tarchive() {
 		if( m_strmInput!=nullptr ) {
 			if( m_strmInput->is_open() ) {
 				m_strmInput->close();
@@ -29,7 +25,7 @@ namespace Tartar {
 		}
 	}
 
-	bool Tartar::init() {
+	bool Tarchive::init() {
 		bool successInit = true;
 
 		// Control header size.
@@ -49,7 +45,7 @@ namespace Tartar {
 		return successInit;
 	}
 
-	void Tartar::done() {
+	void Tarchive::done() {
 		// The end of an archive is marked by at least two consecutive zero-filled records. 
 		// The final block of an archive is padded out to full length with zero bytes.
 
@@ -66,11 +62,11 @@ namespace Tartar {
 		}
 	}
 
-	bool Tartar::strmTarIsGood() {
+	bool Tarchive::strmTarIsGood() {
 		if( !m_strmTar->is_open() )	{
 			m_prevError = PrevErrors_TAR_NOT_FOUND;
 		} 
-		Tartar::IOErrors strmError = getStrmStatus( m_strmTar );
+		Tarchive::IOErrors strmError = getStrmStatus( m_strmTar );
 		switch( strmError ) {
 		case IOErrors_EOF:
 			m_prevError = PrevErrors_TAR_EOF;
@@ -90,8 +86,8 @@ namespace Tartar {
 
 		return strmTarIsGood;
 	}
-	Tartar::IOErrors Tartar::getStrmStatus( std::ios* p_strm ) {
-		Tartar::IOErrors ioErrors = IOErrors_NA;
+	Tarchive::IOErrors Tarchive::getStrmStatus( std::ios* p_strm ) {
+		Tarchive::IOErrors ioErrors = IOErrors_NA;
 		if( p_strm->eof() ) {
 			ioErrors = IOErrors_EOF;
 		} else if( p_strm->bad() ) {
@@ -102,19 +98,22 @@ namespace Tartar {
 		return ioErrors;
 	}
 
-	bool Tartar::tarchiveFile( const char* p_filename ) {
+	bool Tarchive::tarchiveFile( const char* p_filename ) {
 		bool successTarchive = false;
 
-		m_strmInput->open( p_filename );
-		Tartar::IOErrors strmError = getStrmStatus(m_strmInput);
+		m_strmInput->open( p_filename, std::ios_base::binary );
+		Tarchive::IOErrors strmError = getStrmStatus(m_strmInput);
 		if( strmError==IOErrors_NA ) { // File has successfully been found and opened.
 			const char* archiveFileName = p_filename; // Consider making this into an argument.
-			
-			// Get input data:
-			std::filebuf* bufInput = m_strmInput->rdbuf();
-			std::size_t inputSize = (std::size_t)bufInput->pubseekoff( 0, m_strmInput->end, m_strmInput->in );
+
+			// Get length of file:
+			m_strmInput->seekg( 0, std::ios::end );
+			unsigned long inputSize = m_strmInput->tellg(); //tellg returns std::ifstream::pos_type
+			m_strmInput->seekg( 0, std::ios::beg );
+
+			// Get contents of file:
 			char* input = new char[inputSize];
-			bufInput->sgetn( input, inputSize );
+			m_strmInput->read( input, inputSize );
 
 			// Create UStar header for the file in question:
 			UStar hdr;
@@ -133,7 +132,7 @@ namespace Tartar {
 		return successTarchive;
 	}
 
-	bool Tartar::initHdr( UStar& io_hdr, const char* p_fileName, unsigned long p_fileSize ) {
+	bool Tarchive::initHdr( UStar& io_hdr, const char* p_fileName, unsigned long p_fileSize ) {
 		// The header-initialization function currrently disregards certain elements 
 		// in the header such as file last modified, file mode, user name and user group name.
 		bool hdrGood = true;
@@ -162,7 +161,7 @@ namespace Tartar {
 		return hdrGood;
 	}
 
-	unsigned int Tartar::calcChecksumHdr( UStar* p_hdr ) {
+	unsigned int Tarchive::calcChecksumHdr( UStar* p_hdr ) {
 		unsigned int checksum = 0;
 		/*The checksum is calculated by taking the sum of the unsigned byte values 
 		| of the header record with the eight checksum bytes taken to be ascii 
@@ -188,7 +187,7 @@ namespace Tartar {
 		return checksum;
 	}
 
-	void Tartar::tarchive( UStar& p_hdr, const char* p_data, unsigned long p_dataSize ) {
+	void Tarchive::tarchive( UStar& p_hdr, const char* p_data, unsigned long p_dataSize ) {
 		// Write header to tar:
 		m_strmTar->write( (char*)(&p_hdr), sizeof(UStar) );
 

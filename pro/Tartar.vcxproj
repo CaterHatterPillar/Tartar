@@ -12,9 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\Tartar.cpp" />
+    <ClCompile Include="..\src\Tarchive.cpp" />
+    <ClCompile Include="..\src\Tartape.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Tarchive.h" />
+    <ClInclude Include="..\src\Tartape.h" />
     <ClInclude Include="..\src\Tartar.h" />
     <ClInclude Include="..\src\UStar.h" />
   </ItemGroup>
