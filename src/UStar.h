@@ -28,11 +28,11 @@ namespace Tartar {
 		const static unsigned sDevNumMin	= 8;	byte devNumMin	[sDevNumMin	];	// Device minor number.
 		const static unsigned sFilePfix		= 155;	byte filePfix	[sFilePfix	];	// Filename prefix.
 
+		// The header is padded with NUL bytes to make it fill a 512 byte record. [Wikipedia]
 		const static unsigned sPad			= 12;	byte pad		[sPad		];
 
 		UStar() {
 			std::memset( this, 0, sizeof(UStar) );
-			std::sprintf( ustarIctr, g_UStar_Indicator );
 		}
 		~UStar() {
 			// Do nothing.

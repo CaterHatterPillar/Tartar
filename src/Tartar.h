@@ -2,9 +2,9 @@
 #define TARTAR_TARTAR_H
 
 namespace std {
-	class ios;
-	class ifstream;
-	class ofstream;
+	typedef basic_ios<char> ios;
+	typedef basic_ifstream<char> ifstream;
+	typedef basic_ofstream<char> ofstream;
 }
 namespace Tartar {
 	struct UStar;
@@ -26,6 +26,7 @@ namespace Tartar {
 		~Tartar();
 
 		bool init();
+		void done();
 
 		bool tarchiveFile( const char* p_filename );
 
@@ -42,7 +43,9 @@ namespace Tartar {
 		bool strmTarIsGood();
 		IOErrors getStrmStatus( std::ios* p_strm );
 
-		bool initHdr( UStar& io_hdr, const char* p_fileName );
+		bool initHdr( UStar& io_hdr, const char* p_fileName, unsigned long p_fileSize );
+		unsigned int calcChecksumHdr( UStar* p_hdr );
+		void tarchive( UStar& p_hdr, const char* p_data, unsigned long p_dataSize );
 
 		const char* m_tarName;
 
