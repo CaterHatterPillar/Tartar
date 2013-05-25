@@ -15,16 +15,18 @@
     <ClCompile Include="..\src\StrmRdr.cpp" />
     <ClCompile Include="..\src\Strm.cpp" />
     <ClCompile Include="..\src\StrmWtr.cpp" />
-    <ClCompile Include="..\src\Tarchive.cpp" />
-    <ClCompile Include="..\src\Tartape.cpp" />
+    <ClCompile Include="..\src\TarCook.cpp" />
+    <ClCompile Include="..\src\TarUncook.cpp" />
+    <ClCompile Include="..\src\TartarBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StrmRdr.h" />
     <ClInclude Include="..\src\Strm.h" />
     <ClInclude Include="..\src\StrmWtr.h" />
-    <ClInclude Include="..\src\Tarchive.h" />
-    <ClInclude Include="..\src\Tartape.h" />
+    <ClInclude Include="..\src\TarCook.h" />
+    <ClInclude Include="..\src\TarUncook.h" />
     <ClInclude Include="..\src\Tartar.h" />
+    <ClInclude Include="..\src\TartarBase.h" />
     <ClInclude Include="..\src\UStar.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

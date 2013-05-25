@@ -2,42 +2,39 @@
 #include <StrmRdr.h>
 #include <StrmWtr.h>
 
-#include <Tarchive.h>
+#include <TarCook.h>
 
 namespace Tartar {
-	Tarchive::Tarchive( const char* p_tarName ) : m_tarName( p_tarName ) {
-		m_prevError = PrevErrors_NA;
-
+	TarCook::TarCook( const char* p_tarName ) : 
+		TartarBase(), 
+		m_tarName( p_tarName ) {
 		m_strmTar = nullptr;
 	}
-	Tarchive::~Tarchive() {
+	TarCook::~TarCook() {
 		if( m_strmTar!=nullptr ) {
 			delete m_strmTar;
 		}
 	}
 
-	bool Tarchive::init() {
-		bool successInit = true;
+	bool TarCook::init() {
+		// Call TartarBase-init to secure default stuff:
+		bool successInit = TartarBase::init();
 
-		// Control header size.
-		if( sizeof(UStar)!=g_UStar_Size ) {
-			m_prevError = PrevErrors_UNEXPECTED_HEADER_SIZE;
-			successInit = false;
-		} else {
+		if( successInit==true ) {
 			// Prepare the resulting tar-file.
 			m_strmTar = new StrmWtr( m_tarName );
 			successInit = m_strmTar->init();
 			if( successInit!=true ) {
 				// Error flags may be retrieved from StrmRdr.
 				// Do some error handling based off those.
-				m_prevError = PrevErrors_UNKNOWN_OUTPUT;
+				m_lastError = TartarErrors_UNKNOWN_OUTPUT;
 			}
 		}
 
 		return successInit;
 	}
 
-	void Tarchive::done() {
+	void TarCook::done() {
 		// The end of an archive is marked by at least two consecutive zero-filled records. 
 		// The final block of an archive is padded out to full length with zero bytes.
 
@@ -50,7 +47,7 @@ namespace Tartar {
 		m_strmTar->done();
 	}
 
-	bool Tarchive::tarchiveFile( const char* p_filename ) {
+	bool TarCook::tarchiveFile( const char* p_filename ) {
 		bool successTarchive = false;
 
 		Tartar::File f;
@@ -71,13 +68,13 @@ namespace Tartar {
 		} else {
 			// Error flags may be retrieved from StrmRdr.
 			// Do some error handling based off those.
-			m_prevError = PrevErrors_UNKNOWN_INPUT;
+			m_lastError = TartarErrors_UNKNOWN_INPUT;
 		}
 
 		return successTarchive;
 	}
 
-	bool Tarchive::initHdr( UStar& io_hdr, const char* p_fileName, unsigned long p_fileSize ) {
+	bool TarCook::initHdr( UStar& io_hdr, const char* p_fileName, unsigned long p_fileSize ) {
 		// The header-initialization function currrently disregards certain elements 
 		// in the header such as file last modified, file mode, user name and user group name.
 		bool hdrGood = true;
@@ -106,7 +103,7 @@ namespace Tartar {
 		return hdrGood;
 	}
 
-	unsigned int Tarchive::calcChecksumHdr( UStar* p_hdr ) {
+	unsigned int TarCook::calcChecksumHdr( UStar* p_hdr ) {
 		unsigned int checksum = 0;
 		/*The checksum is calculated by taking the sum of the unsigned byte values 
 		| of the header record with the eight checksum bytes taken to be ascii 
@@ -132,7 +129,7 @@ namespace Tartar {
 		return checksum;
 	}
 
-	void Tarchive::tarchive( UStar& p_hdr, const char* p_data, unsigned long p_dataSize ) {
+	void TarCook::tarchive( UStar& p_hdr, const char* p_data, unsigned long p_dataSize ) {
 		// Write header to tar:
 		m_strmTar->push( (char*)(&p_hdr), sizeof(UStar) );
 

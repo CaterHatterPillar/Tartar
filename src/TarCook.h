@@ -1,5 +1,5 @@
-#ifndef TARTAR_TARCHIVE_H
-#define TARTAR_TARCHIVE_H
+#ifndef TARTAR_TARCOOK_H
+#define TARTAR_TARCOOK_H
 
 // Creates a tar-archive.
 
@@ -9,25 +9,18 @@ namespace Tartar {
 	class StrmWtr;
 }
 
-namespace Tartar {
-	enum PrevErrors {
-		PrevErrors_NA,
-		PrevErrors_UNEXPECTED_HEADER_SIZE,
-		PrevErrors_UNKNOWN_INPUT,
-		PrevErrors_UNKNOWN_OUTPUT
-	};
+#include <TartarBase.h>
 
-	class Tarchive {
+namespace Tartar {
+	class TarCook : public TartarBase {
 	public:
-		Tarchive( const char* p_tarName );
-		~Tarchive();
+		TarCook( const char* p_tarName );
+		~TarCook();
 
 		bool init();
 		void done();
 
 		bool tarchiveFile( const char* p_filename );
-
-		PrevErrors getPrevRecordedError() { return m_prevError; }
 	protected:
 	private:
 		bool initHdr( UStar& io_hdr, const char* p_fileName, unsigned long p_fileSize );
@@ -35,9 +28,8 @@ namespace Tartar {
 		void tarchive( UStar& p_hdr, const char* p_data, unsigned long p_dataSize );
 
 		const char* m_tarName;
-		PrevErrors m_prevError;
 		StrmWtr* m_strmTar;
 	};
 }
 
-#endif //TARTAR_TARCHIVE_H
+#endif //TARTAR_TARCOOK_H

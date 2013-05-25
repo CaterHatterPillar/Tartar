@@ -26,7 +26,7 @@ namespace Tartar {
 
 			// Get length of file:
 			m_strmI->seekg( 0, std::ios::end );
-			io_f.fileSize = m_strmI->tellg();
+			io_f.fileSize = (unsigned long)m_strmI->tellg();
 			m_strmI->seekg( 0, std::ios::beg );
 
 			// Get contents of file:

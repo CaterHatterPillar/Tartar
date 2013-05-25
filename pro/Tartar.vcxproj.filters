@@ -2,12 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\Tarchive.cpp">
-      <Filter>Tarchive</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Tartape.cpp">
-      <Filter>Tartape</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Strm.cpp">
       <Filter>Strm</Filter>
     </ClCompile>
@@ -17,16 +11,19 @@
     <ClCompile Include="..\src\StrmWtr.cpp">
       <Filter>Strm\StrmWtr</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\TartarBase.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TarCook.cpp">
+      <Filter>API\Tarchive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TarUncook.cpp">
+      <Filter>API\Tartape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Tartar.h" />
     <ClInclude Include="..\src\UStar.h" />
-    <ClInclude Include="..\src\Tarchive.h">
-      <Filter>Tarchive</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Tartape.h">
-      <Filter>Tartape</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Strm.h">
       <Filter>Strm</Filter>
     </ClInclude>
@@ -36,14 +33,17 @@
     <ClInclude Include="..\src\StrmWtr.h">
       <Filter>Strm\StrmWtr</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\TartarBase.h">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TarCook.h">
+      <Filter>API\Tarchive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TarUncook.h">
+      <Filter>API\Tartape</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Tarchive">
-      <UniqueIdentifier>{04b70a16-b02d-42d1-a8c7-431d9c8d4c36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tartape">
-      <UniqueIdentifier>{672cd622-e58b-446e-85e3-a2d42c9cf730}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Strm">
       <UniqueIdentifier>{c6b5406a-12b9-4948-a715-cf1ad85565d5}</UniqueIdentifier>
     </Filter>
@@ -52,6 +52,15 @@
     </Filter>
     <Filter Include="Strm\StrmWtr">
       <UniqueIdentifier>{4d3c8f16-e44b-4a56-9868-f8d1bced724d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API">
+      <UniqueIdentifier>{20f32a59-6239-4bd0-bcbb-38d2c724cf06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Tarchive">
+      <UniqueIdentifier>{04b70a16-b02d-42d1-a8c7-431d9c8d4c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Tartape">
+      <UniqueIdentifier>{672cd622-e58b-446e-85e3-a2d42c9cf730}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -14,7 +14,7 @@ int main() {
 	demoFiles[4] = "../demo5.txt";
 	
 	std::string tarName = "../demo.tar";
-	Tartar::Tarchive* tartar = new Tartar::Tarchive(tarName.c_str());
+	Tartar::TarCook* tartar = new Tartar::TarCook(tarName.c_str());
 	successDemo = tartar->init(); // Call me to initialize tar archive.
 	if( successDemo==true ) {
 		for( unsigned int i = 0; i<5 && successDemo==true; i++ ) {
