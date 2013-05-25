@@ -1,5 +1,6 @@
 #include <fstream>
 
+#include <Tar.h>
 #include <Strm.h>
 #include <StrmRdr.h>
 

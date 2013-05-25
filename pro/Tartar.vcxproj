@@ -23,11 +23,19 @@
     <ClInclude Include="..\src\StrmRdr.h" />
     <ClInclude Include="..\src\Strm.h" />
     <ClInclude Include="..\src\StrmWtr.h" />
+    <ClInclude Include="..\src\Tar.h" />
     <ClInclude Include="..\src\TarCook.h" />
     <ClInclude Include="..\src\TarUncook.h" />
     <ClInclude Include="..\src\Tartar.h" />
     <ClInclude Include="..\src\TartarBase.h" />
     <ClInclude Include="..\src\UStar.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\demo1.txt" />
+    <Text Include="..\demo2.txt" />
+    <Text Include="..\demo3.txt" />
+    <Text Include="..\demo4.txt" />
+    <Text Include="..\demo5.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{62D0DBED-3C9F-4A78-B448-87185DC44069}</ProjectGuid>

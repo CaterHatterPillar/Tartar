@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Strm.cpp">
       <Filter>Strm</Filter>
     </ClCompile>
@@ -15,15 +14,17 @@
       <Filter>API</Filter>
     </ClCompile>
     <ClCompile Include="..\src\TarCook.cpp">
-      <Filter>API\Tarchive</Filter>
+      <Filter>API\TarCook</Filter>
     </ClCompile>
     <ClCompile Include="..\src\TarUncook.cpp">
-      <Filter>API\Tartape</Filter>
+      <Filter>API\TarUncook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>Demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Tartar.h" />
-    <ClInclude Include="..\src\UStar.h" />
     <ClInclude Include="..\src\Strm.h">
       <Filter>Strm</Filter>
     </ClInclude>
@@ -37,10 +38,16 @@
       <Filter>API</Filter>
     </ClInclude>
     <ClInclude Include="..\src\TarCook.h">
-      <Filter>API\Tarchive</Filter>
+      <Filter>API\TarCook</Filter>
     </ClInclude>
     <ClInclude Include="..\src\TarUncook.h">
-      <Filter>API\Tartape</Filter>
+      <Filter>API\TarUncook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Tar.h">
+      <Filter>API\Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UStar.h">
+      <Filter>API\Structs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -56,11 +63,37 @@
     <Filter Include="API">
       <UniqueIdentifier>{20f32a59-6239-4bd0-bcbb-38d2c724cf06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="API\Tarchive">
-      <UniqueIdentifier>{04b70a16-b02d-42d1-a8c7-431d9c8d4c36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="API\Tartape">
+    <Filter Include="API\TarUncook">
       <UniqueIdentifier>{672cd622-e58b-446e-85e3-a2d42c9cf730}</UniqueIdentifier>
     </Filter>
+    <Filter Include="API\TarCook">
+      <UniqueIdentifier>{04b70a16-b02d-42d1-a8c7-431d9c8d4c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo">
+      <UniqueIdentifier>{66cc437a-bb7c-4148-b8e0-a2d82f233adb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo\Fröding">
+      <UniqueIdentifier>{aa9f73f4-5080-44b6-a25b-58be29de0dbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Structs">
+      <UniqueIdentifier>{da110fb5-3fe6-4d71-b8f8-4deb0bba3f08}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\demo1.txt">
+      <Filter>Demo\Fröding</Filter>
+    </Text>
+    <Text Include="..\demo2.txt">
+      <Filter>Demo\Fröding</Filter>
+    </Text>
+    <Text Include="..\demo3.txt">
+      <Filter>Demo\Fröding</Filter>
+    </Text>
+    <Text Include="..\demo4.txt">
+      <Filter>Demo\Fröding</Filter>
+    </Text>
+    <Text Include="..\demo5.txt">
+      <Filter>Demo\Fröding</Filter>
+    </Text>
   </ItemGroup>
 </Project>

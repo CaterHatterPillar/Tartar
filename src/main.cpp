@@ -13,19 +13,28 @@ int main() {
 	demoFiles[3] = "../demo4.txt";
 	demoFiles[4] = "../demo5.txt";
 	
+	// Cook.
 	std::string tarName = "../demo.tar";
-	Tartar::TarCook* tartar = new Tartar::TarCook(tarName.c_str());
-	successDemo = tartar->init(); // Call me to initialize tar archive.
+	Tartar::TarCook* tarCook = new Tartar::TarCook(tarName.c_str());
+	successDemo = tarCook->init(); // Call me to initialize tar archive.
 	if( successDemo==true ) {
 		for( unsigned int i = 0; i<5 && successDemo==true; i++ ) {
 			std::string demoFile = demoFiles[i];
-			successDemo = tartar->tarchiveFile( demoFile.c_str() );
+			successDemo = tarCook->tarchiveFile( demoFile.c_str() );
 		}
 		if( successDemo==true ) {
-			tartar->done(); // Call me to close tar archive.
+			tarCook->done(); // Call me to close tar archive.
 		}
 	}
 
-	delete tartar;
+	// Uncook.
+	Tartar::TarUncook* tarUncook = new Tartar::TarUncook( tarName.c_str() );
+	Tartar::Tar t;
+	successDemo = tarUncook->init( t );
+	if( successDemo==true ) {
+		// Do stuff.
+	}
+
+	delete tarCook;
 	return (int)!successDemo;
 }

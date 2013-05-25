@@ -1,10 +1,11 @@
-#ifndef TARTAR_TARTAPE_H
-#define TARTAR_TARTAPE_H
+#ifndef TARTAR_TARUNCOOK_H
+#define TARTAR_TARUNCOOK_H
 
 // Reads a tar-archive.
 
 namespace Tartar {
 	struct File;
+	struct Tar;
 
 	class StrmRdr;
 }
@@ -28,4 +29,4 @@ namespace Tartar {
 	};
 }
 
-#endif // TARTAR_TARTAPE_H
+#endif // TARTAR_TARUNCOOK_H

@@ -1,3 +1,4 @@
+#include <Tar.h>
 #include <UStar.h>
 #include <StrmRdr.h>
 #include <StrmWtr.h>

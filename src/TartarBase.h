@@ -9,10 +9,6 @@ namespace Tartar {
 		TartarErrors_UNKNOWN_OUTPUT
 	};
 
-	struct Tar {
-		// Stuff here.
-	};
-
 	class TartarBase {
 	public:
 		TartarBase();

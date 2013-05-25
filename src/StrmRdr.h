@@ -1,6 +1,10 @@
 #ifndef TARTAR_STRMRDR_H
 #define TARTAR_STRMRDR_H
 
+namespace Tartar {
+	struct File;
+}
+
 #include <Strm.h>
 
 namespace Tartar {
