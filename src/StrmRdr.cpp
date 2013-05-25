@@ -4,9 +4,7 @@
 #include <StrmRdr.h>
 
 namespace Tartar {
-	StrmRdr::StrmRdr( const char* p_filepath ) : m_filepath( p_filepath ) {
-		m_strmStatus = IOErrors_NA;
-
+	StrmRdr::StrmRdr( const char* p_filepath ) : Strm( p_filepath ) {
 		m_strmI = nullptr;
 	}
 	StrmRdr::~StrmRdr() {
@@ -38,21 +36,9 @@ namespace Tartar {
 			m_strmI->close(); // Do not forget to close the file.
 
 		} else {
-			m_strmStatus = getStrmStatus( m_strmI );
+			setStrmStatus( m_strmI );
 		}
 
 		return successInit;
-	}
-
-	StrmRdr::IOErrors StrmRdr::getStrmStatus( std::ios* p_strm ) {
-		StrmRdr::IOErrors ioErrors = IOErrors_NA;
-		if( p_strm->eof() ) {
-			ioErrors = IOErrors_EOF;
-		} else if( p_strm->bad() ) {
-			ioErrors = IOErrors_BAD;
-		} else if( p_strm->fail() ) {
-			ioErrors = IOErrors_FAIL;
-		}
-		return ioErrors;
 	}
 }

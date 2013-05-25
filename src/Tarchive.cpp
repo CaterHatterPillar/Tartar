@@ -1,20 +1,17 @@
-#include <fstream>
-
 #include <UStar.h>
 #include <StrmRdr.h>
+#include <StrmWtr.h>
+
 #include <Tarchive.h>
 
 namespace Tartar {
 	Tarchive::Tarchive( const char* p_tarName ) : m_tarName( p_tarName ) {
 		m_prevError = PrevErrors_NA;
 
-		m_strmTar	= nullptr;
+		m_strmTar = nullptr;
 	}
 	Tarchive::~Tarchive() {
 		if( m_strmTar!=nullptr ) {
-			if( m_strmTar->is_open() ) {
-				m_strmTar->close();
-			}
 			delete m_strmTar;
 		}
 	}
@@ -26,12 +23,16 @@ namespace Tartar {
 		if( sizeof(UStar)!=g_UStar_Size ) {
 			m_prevError = PrevErrors_UNEXPECTED_HEADER_SIZE;
 			successInit = false;
+		} else {
+			// Prepare the resulting tar-file.
+			m_strmTar = new StrmWtr( m_tarName );
+			successInit = m_strmTar->init();
+			if( successInit!=true ) {
+				// Error flags may be retrieved from StrmRdr.
+				// Do some error handling based off those.
+				m_prevError = PrevErrors_UNKNOWN_OUTPUT;
+			}
 		}
-
-		// Create the resulting tar-file.
-		m_strmTar = new std::ofstream();
-		m_strmTar->open( m_tarName, std::ios::out );
-		successInit = strmTarIsGood();
 
 		return successInit;
 	}
@@ -42,60 +43,20 @@ namespace Tartar {
 
 		// Write closing statement to tar:
 		UStar emptyHdr; // Default constructor nulls it for us.
-		m_strmTar->write( (char*)(&emptyHdr), sizeof(UStar) );
-		m_strmTar->write( (char*)(&emptyHdr), sizeof(UStar) );
+		m_strmTar->push( (char*)(&emptyHdr), sizeof(UStar) );
+		m_strmTar->push( (char*)(&emptyHdr), sizeof(UStar) );
 
 		// Then close and complete our tar-archive:
-		if( m_strmTar!=nullptr ) {
-			if( m_strmTar->is_open() ) {
-				m_strmTar->close();
-			}
-		}
-	}
-
-	bool Tarchive::strmTarIsGood() {
-		if( !m_strmTar->is_open() )	{
-			m_prevError = PrevErrors_TAR_NOT_FOUND;
-		} 
-		Tarchive::IOErrors strmError = getStrmStatus( m_strmTar );
-		switch( strmError ) {
-		case IOErrors_EOF:
-			m_prevError = PrevErrors_TAR_EOF;
-			break;
-		case IOErrors_BAD:
-			m_prevError = PrevErrors_TAR_BAD;
-			break;
-		case IOErrors_FAIL:
-			m_prevError = PrevErrors_TAR_FAIL;
-			break;
-		}
-
-		bool strmTarIsGood = true;
-		if( m_prevError!=PrevErrors_NA ) {
-			strmTarIsGood = false;
-		}
-
-		return strmTarIsGood;
-	}
-	Tarchive::IOErrors Tarchive::getStrmStatus( std::ios* p_strm ) {
-		Tarchive::IOErrors ioErrors = IOErrors_NA;
-		if( p_strm->eof() ) {
-			ioErrors = IOErrors_EOF;
-		} else if( p_strm->bad() ) {
-			ioErrors = IOErrors_BAD;
-		} else if( p_strm->fail() ) {
-			ioErrors = IOErrors_FAIL;
-		}
-		return ioErrors;
+		m_strmTar->done();
 	}
 
 	bool Tarchive::tarchiveFile( const char* p_filename ) {
 		bool successTarchive = false;
 
-		File f;
+		Tartar::File f;
 
-		StrmRdr strmRdr(p_filename);
-		bool strmOK = strmRdr.init( f );
+		StrmRdr strmFile(p_filename);
+		bool strmOK = strmFile.init( f );
 		if( strmOK ) {
 			const char* archiveFileName = p_filename; // Consider making this into an argument.
 
@@ -107,6 +68,10 @@ namespace Tartar {
 			tarchive( hdr, f.fileData, f.fileSize );
 
 			successTarchive = true;
+		} else {
+			// Error flags may be retrieved from StrmRdr.
+			// Do some error handling based off those.
+			m_prevError = PrevErrors_UNKNOWN_INPUT;
 		}
 
 		return successTarchive;
@@ -169,16 +134,16 @@ namespace Tartar {
 
 	void Tarchive::tarchive( UStar& p_hdr, const char* p_data, unsigned long p_dataSize ) {
 		// Write header to tar:
-		m_strmTar->write( (char*)(&p_hdr), sizeof(UStar) );
+		m_strmTar->push( (char*)(&p_hdr), sizeof(UStar) );
 
 		// Write file to tar:
-		m_strmTar->write( p_data, p_dataSize );
+		m_strmTar->push( p_data, p_dataSize );
 
 		// The final block of an archive is padded out to full length with zero bytes. [Wikipedia]
 		char nullChar = '\0';
 		unsigned long curChar = p_dataSize;
 		while( (curChar%sizeof(UStar)) != 0 ) {
-			m_strmTar->write( &nullChar, sizeof(char) );
+			m_strmTar->push( &nullChar, sizeof(char) );
 			curChar++;
 		}
 	}

@@ -14,6 +14,9 @@
     <ClCompile Include="..\src\StrmRdr.cpp">
       <Filter>Strm\StrmRdr</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\StrmWtr.cpp">
+      <Filter>Strm\StrmWtr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Tartar.h" />
@@ -30,6 +33,9 @@
     <ClInclude Include="..\src\StrmRdr.h">
       <Filter>Strm\StrmRdr</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\StrmWtr.h">
+      <Filter>Strm\StrmWtr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tarchive">
@@ -43,6 +49,9 @@
     </Filter>
     <Filter Include="Strm\StrmRdr">
       <UniqueIdentifier>{c3c39834-3c5f-4988-8fa0-93485422874f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strm\StrmWtr">
+      <UniqueIdentifier>{4d3c8f16-e44b-4a56-9868-f8d1bced724d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
