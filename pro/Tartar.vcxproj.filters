@@ -8,6 +8,12 @@
     <ClCompile Include="..\src\Tartape.cpp">
       <Filter>Tartape</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Strm.cpp">
+      <Filter>Strm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\StrmRdr.cpp">
+      <Filter>Strm\StrmRdr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Tartar.h" />
@@ -18,6 +24,12 @@
     <ClInclude Include="..\src\Tartape.h">
       <Filter>Tartape</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Strm.h">
+      <Filter>Strm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\StrmRdr.h">
+      <Filter>Strm\StrmRdr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tarchive">
@@ -25,6 +37,12 @@
     </Filter>
     <Filter Include="Tartape">
       <UniqueIdentifier>{672cd622-e58b-446e-85e3-a2d42c9cf730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strm">
+      <UniqueIdentifier>{c6b5406a-12b9-4948-a715-cf1ad85565d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strm\StrmRdr">
+      <UniqueIdentifier>{c3c39834-3c5f-4988-8fa0-93485422874f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

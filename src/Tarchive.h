@@ -4,8 +4,6 @@
 // Creates a tar-archive.
 
 namespace std {
-	typedef basic_ios<char> ios;
-	typedef basic_ifstream<char> ifstream;
 	typedef basic_ofstream<char> ofstream;
 }
 namespace Tartar {
@@ -53,7 +51,6 @@ namespace Tartar {
 
 		PrevErrors m_prevError;
 
-		std::ifstream* m_strmInput;
 		std::ofstream* m_strmTar;
 	};
 }

@@ -1,22 +1,16 @@
 #include <fstream>
 
 #include <UStar.h>
+#include <StrmRdr.h>
 #include <Tarchive.h>
 
 namespace Tartar {
 	Tarchive::Tarchive( const char* p_tarName ) : m_tarName( p_tarName ) {
 		m_prevError = PrevErrors_NA;
 
-		m_strmInput	= nullptr;
 		m_strmTar	= nullptr;
 	}
 	Tarchive::~Tarchive() {
-		if( m_strmInput!=nullptr ) {
-			if( m_strmInput->is_open() ) {
-				m_strmInput->close();
-			}
-			delete m_strmInput;
-		}
 		if( m_strmTar!=nullptr ) {
 			if( m_strmTar->is_open() ) {
 				m_strmTar->close();
@@ -38,9 +32,6 @@ namespace Tartar {
 		m_strmTar = new std::ofstream();
 		m_strmTar->open( m_tarName, std::ios::out );
 		successInit = strmTarIsGood();
-
-		// Initialize other vars.
-		m_strmInput = new std::ifstream();
 
 		return successInit;
 	}
@@ -101,33 +92,22 @@ namespace Tartar {
 	bool Tarchive::tarchiveFile( const char* p_filename ) {
 		bool successTarchive = false;
 
-		m_strmInput->open( p_filename, std::ios_base::binary );
-		Tarchive::IOErrors strmError = getStrmStatus(m_strmInput);
-		if( strmError==IOErrors_NA ) { // File has successfully been found and opened.
+		File f;
+
+		StrmRdr strmRdr(p_filename);
+		bool strmOK = strmRdr.init( f );
+		if( strmOK ) {
 			const char* archiveFileName = p_filename; // Consider making this into an argument.
-
-			// Get length of file:
-			m_strmInput->seekg( 0, std::ios::end );
-			unsigned long inputSize = m_strmInput->tellg(); //tellg returns std::ifstream::pos_type
-			m_strmInput->seekg( 0, std::ios::beg );
-
-			// Get contents of file:
-			char* input = new char[inputSize];
-			m_strmInput->read( input, inputSize );
 
 			// Create UStar header for the file in question:
 			UStar hdr;
-			successTarchive = initHdr( hdr, archiveFileName, inputSize );
+			successTarchive = initHdr( hdr, archiveFileName, f.fileSize );
 
 			// Archive the data:
-			tarchive( hdr, input, inputSize );
-
-			// Don't forget to close the input-file and clear memory allocated:
-			m_strmInput->close();
-			delete[] input;
+			tarchive( hdr, f.fileData, f.fileSize );
 
 			successTarchive = true;
-		} 
+		}
 
 		return successTarchive;
 	}
