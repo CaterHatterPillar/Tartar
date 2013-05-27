@@ -11,6 +11,10 @@ namespace Tartar {
 		File() {
 			std::memset( this, 0, sizeof(File) );
 		}
+		File( unsigned long p_fileSize, char* p_fileData ) {
+			fileSize = p_fileSize;
+			fileData = p_fileData;
+		}
 		~File() {
 			if( fileData!=0 ) {
 				delete[] fileData;
@@ -18,15 +22,15 @@ namespace Tartar {
 		}
 	};
 
-	struct Tar {
-		std::vector<File> files;
+	class Tar {
+	public:
+		Tar();
+		~Tar();
 
-		Tar() {
-			files = std::vector<File>();
-		}
-		~Tar() {
-			// Do nothing.
-		}
+		void push( unsigned long p_fileSize, char* p_fileData );
+	protected:
+	private:
+		std::vector<File*> m_files;
 	};
 }
 

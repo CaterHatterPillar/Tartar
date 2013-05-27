@@ -7,7 +7,7 @@ typedef char byte;
 
 namespace Tartar {
 	//u s t a r \0 0 0 at byte 257 ("ustar" followed by a null byte followed by two digits '0', 8 bytes in total) [Wikipedia]
-	static const char* g_UStar_Indicator = "ustar  ";
+	static const char* g_UStar_Indicator = "ustar\000";
 	static const unsigned int g_UStar_Size = 512;
 
 	struct UStar {

@@ -2,11 +2,12 @@
 #define TARTAR_TARUNCOOK_H
 
 // Reads a tar-archive.
+// Note to self: Implement flags to specify checksum-validation etc.
 
 namespace Tartar {
 	struct File;
-	struct Tar;
-
+	
+	class Tar;
 	class StrmRdr;
 }
 

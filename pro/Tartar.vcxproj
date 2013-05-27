@@ -15,6 +15,7 @@
     <ClCompile Include="..\src\StrmRdr.cpp" />
     <ClCompile Include="..\src\Strm.cpp" />
     <ClCompile Include="..\src\StrmWtr.cpp" />
+    <ClCompile Include="..\src\Tar.cpp" />
     <ClCompile Include="..\src\TarCook.cpp" />
     <ClCompile Include="..\src\TarUncook.cpp" />
     <ClCompile Include="..\src\TartarBase.cpp" />

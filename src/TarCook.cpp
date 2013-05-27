@@ -5,6 +5,9 @@
 
 #include <TarCook.h>
 
+// For reference when it comes to printf-formats:
+// http://www.cplusplus.com/reference/cstdio/printf/
+
 namespace Tartar {
 	TarCook::TarCook( const char* p_tarName ) : 
 		TartarBase(), 
@@ -20,7 +23,6 @@ namespace Tartar {
 	bool TarCook::init() {
 		// Call TartarBase-init to secure default stuff:
 		bool successInit = TartarBase::init();
-
 		if( successInit==true ) {
 			// Prepare the resulting tar-file.
 			m_strmTar = new StrmWtr( m_tarName );
@@ -95,7 +97,12 @@ namespace Tartar {
 		io_hdr.linkIctr[0] = g_UStar_LinkIndicator_Normal;
 
 		// Set length of file:
-		std::sprintf( io_hdr.fileSize, "%011llo",  (long long unsigned int)p_fileSize );
+		// Note to self: Use octal?
+		std::sprintf( io_hdr.fileSize, "%011lld",  (long long unsigned int)p_fileSize );
+		// 0	- uses 0 instead of spaces. 
+		// 11	- minimum number of digits to be written
+		// ll	- long long unsigned
+		// d	- decimal
 
 		// Set checkum of header:
 		unsigned int checksum = calcChecksumHdr( &io_hdr );
