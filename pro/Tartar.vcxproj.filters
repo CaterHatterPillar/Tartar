@@ -13,9 +13,6 @@
     <ClCompile Include="..\src\TartarBase.cpp">
       <Filter>API</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\TarCook.cpp">
-      <Filter>API\TarCook</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\TarUncook.cpp">
       <Filter>API\TarUncook</Filter>
     </ClCompile>
@@ -24,6 +21,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Tar.cpp">
       <Filter>API\Structs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TarCookFile.cpp">
+      <Filter>API\TarCook</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -40,9 +40,6 @@
     <ClInclude Include="..\src\TartarBase.h">
       <Filter>API</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\TarCook.h">
-      <Filter>API\TarCook</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\TarUncook.h">
       <Filter>API\TarUncook</Filter>
     </ClInclude>
@@ -51,6 +48,9 @@
     </ClInclude>
     <ClInclude Include="..\src\UStar.h">
       <Filter>API\Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TarCookFile.h">
+      <Filter>API\TarCook</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

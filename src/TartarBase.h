@@ -18,6 +18,8 @@ namespace Tartar {
 
 		TartarErrors getLastError() const { return m_lastError; }
 	protected:
+		unsigned int calcChecksumHdr( UStar* p_hdr );
+
 		TartarErrors m_lastError;
 	private:
 	};

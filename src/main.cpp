@@ -15,12 +15,12 @@ int main() {
 	
 	// Cook.
 	std::string tarName = "../demo.tar";
-	Tartar::TarCook* tarCook = new Tartar::TarCook(tarName.c_str());
+	Tartar::TarCookFile* tarCook = new Tartar::TarCookFile(tarName.c_str());
 	successDemo = tarCook->init(); // Call me to initialize tar archive.
 	if( successDemo==true ) {
 		for( unsigned int i = 0; i<5 && successDemo==true; i++ ) {
 			std::string demoFile = demoFiles[i];
-			successDemo = tarCook->tarchiveFile( demoFile.c_str() );
+			successDemo = tarCook->cookFile( demoFile.c_str() );
 		}
 		if( successDemo==true ) {
 			tarCook->done(); // Call me to close tar archive.
