@@ -9,10 +9,10 @@ namespace Tartar {
 	class StrmWtr;
 }
 
-#include <TartarBase.h>
+#include <TarCook.h>
 
 namespace Tartar {
-	class TarCookFile : public TartarBase {
+	class TarCookFile : public TarCook {
 	public:
 		TarCookFile( const char* p_tarName );
 		~TarCookFile();
@@ -23,7 +23,6 @@ namespace Tartar {
 		bool cookFile( const char* p_filename );
 	protected:
 	private:
-		bool initHdr( UStar& io_hdr, const char* p_fileName, unsigned long p_fileSize );
 		void cook( UStar& p_hdr, const char* p_data, unsigned long p_dataSize );
 
 		const char* m_tarName;

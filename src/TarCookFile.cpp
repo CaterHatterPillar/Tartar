@@ -10,7 +10,7 @@
 
 namespace Tartar {
 	TarCookFile::TarCookFile( const char* p_tarName ) : 
-		TartarBase(), 
+		TarCook(), 
 		m_tarName( p_tarName ) {
 		m_strmTar = nullptr;
 	}
@@ -22,7 +22,7 @@ namespace Tartar {
 
 	bool TarCookFile::init() {
 		// Call TartarBase-init to secure default stuff:
-		bool successInit = TartarBase::init();
+		bool successInit = TarCook::init();
 		if( successInit==true ) {
 			// Prepare the resulting tar-file.
 			m_strmTar = new StrmWtr( m_tarName );
@@ -62,7 +62,7 @@ namespace Tartar {
 
 			// Create UStar header for the file in question:
 			UStar hdr;
-			successTarchive = initHdr( hdr, archiveFileName, f.fileSize );
+			successTarchive = cookHdr( hdr, archiveFileName, f.fileSize );
 
 			// Archive the data:
 			cook( hdr, f.fileData, f.fileSize );
@@ -77,40 +77,6 @@ namespace Tartar {
 		return successTarchive;
 	}
 
-	bool TarCookFile::initHdr( UStar& io_hdr, const char* p_fileName, unsigned long p_fileSize ) {
-		// The header-initialization function currrently disregards certain elements 
-		// in the header such as file last modified, file mode, user name and user group name.
-		bool hdrGood = true;
-
-		// Set tar header specification:
-		std::sprintf( io_hdr.ustarIctr, g_UStar_Indicator );
-
-		// Set filename:
-		unsigned int nameChars = std::strlen( p_fileName );
-		if( p_fileName!=nullptr && nameChars<UStar::sFilename ) {
-			std::sprintf( io_hdr.filename, p_fileName );
-		} else {
-			hdrGood |= false;
-		}
-
-		// Set link indicator field:
-		io_hdr.linkIctr[0] = g_UStar_LinkIndicator_Normal;
-
-		// Set length of file:
-		// Note to self: Use octal?
-		std::sprintf( io_hdr.fileSize, "%011lld",  (long long unsigned int)p_fileSize );
-		// 0	- uses 0 instead of spaces. 
-		// 11	- minimum number of digits to be written
-		// ll	- long long unsigned
-		// d	- decimal
-
-		// Set checkum of header:
-		unsigned int checksum = calcChecksumHdr( &io_hdr );
-		std::sprintf( io_hdr.checksum, "%06o", checksum );
-
-		return hdrGood;
-	}
-
 	void TarCookFile::cook( UStar& p_hdr, const char* p_data, unsigned long p_dataSize ) {
 		// Write header to tar:
 		m_strmTar->push( (char*)(&p_hdr), sizeof(UStar) );
@@ -120,10 +86,15 @@ namespace Tartar {
 
 		// The final block of an archive is padded out to full length with zero bytes. [Wikipedia]
 		char nullChar = '\0';
-		unsigned long curChar = p_dataSize;
-		while( (curChar%sizeof(UStar)) != 0 ) {
+		unsigned int padNum = getPadNum( p_dataSize, sizeof(UStar) );
+		for( unsigned int i = 0; i < padNum; i++ ) {
 			m_strmTar->push( &nullChar, sizeof(char) );
-			curChar++;
 		}
+		
+		//unsigned long curChar = p_dataSize;
+		//while( (curChar%sizeof(UStar)) != 0 ) {
+		//	m_strmTar->push( &nullChar, sizeof(char) );
+		//	curChar++;
+		//}
 	}
 }

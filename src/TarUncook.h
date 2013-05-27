@@ -11,10 +11,10 @@ namespace Tartar {
 	class StrmRdr;
 }
 
-#include <TartarBase.h>
+#include <TarCook.h>
 
 namespace Tartar {
-	class TarUncook : TartarBase {
+	class TarUncook : TarCook {
 	public:
 		TarUncook( const char* p_targetTar );
 		~TarUncook();

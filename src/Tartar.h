@@ -2,6 +2,7 @@
 #define TARTAR_TARTAR_H
 
 // Components to use:
+#include <TarCookMem.h>
 #include <TarCookFile.h>
 #include <TarUncook.h>
 

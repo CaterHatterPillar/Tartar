@@ -9,7 +9,7 @@
 
 namespace Tartar {
 	TarUncook::TarUncook( const char* p_targetTar ) : 
-		TartarBase(),  
+		TarCook(),  
 		m_targetTar( p_targetTar ) {
 		m_tar = nullptr;
 	}
@@ -20,7 +20,7 @@ namespace Tartar {
 	}
 
 	bool TarUncook::init( Tar& io_t ) {
-		bool successInit = TartarBase::init();
+		bool successInit = TarCook::init();
 		if( successInit==true ) {
 			Tartar::File f;
 

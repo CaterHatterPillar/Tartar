@@ -2,18 +2,40 @@
 
 #include <Tartar.h>
 
+//Temp
+#include <Windows.h>
+#include <stdio.h>
+#include <iostream>
+
 // Demo
 int main() {
 	bool successDemo = false;
 
+	// Mem demo:
+	/*
+	AllocConsole(); //Temp
+	
+	std::string demo = "I wish to be formatted into a tar-archive";
+	Tartar::File f;
+	Tartar::TarCookMem* tarChef = new Tartar::TarCookMem( f );
+	tarChef->cook( "demo.demo", demo.c_str(), demo.size() );
+	
+	char* p = f.fileData;
+	for( unsigned int i = 0; i < f.fileSize; i++ )
+	{
+		std::cout << *p;
+		p++;
+	}
+	*/
+
+	// File Demo:
 	std::string demoFiles[5];
 	demoFiles[0] = "../demo1.txt";
 	demoFiles[1] = "../demo2.txt";
 	demoFiles[2] = "../demo3.txt";
 	demoFiles[3] = "../demo4.txt";
 	demoFiles[4] = "../demo5.txt";
-	
-	// Cook.
+
 	std::string tarName = "../demo.tar";
 	Tartar::TarCookFile* tarCook = new Tartar::TarCookFile(tarName.c_str());
 	successDemo = tarCook->init(); // Call me to initialize tar archive.
@@ -26,7 +48,7 @@ int main() {
 			tarCook->done(); // Call me to close tar archive.
 		}
 	}
-
+	
 	// Uncook.
 	Tartar::TarUncook* tarUncook = new Tartar::TarUncook( tarName.c_str() );
 	Tartar::Tar t;
@@ -36,5 +58,6 @@ int main() {
 	}
 
 	delete tarCook;
+
 	return (int)!successDemo;
 }
