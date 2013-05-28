@@ -28,6 +28,8 @@ namespace Tartar {
 		~Tar();
 
 		void push( unsigned long p_fileSize, char* p_fileData );
+
+		std::vector<File*>& getFiles() { return m_files; }
 	protected:
 	private:
 		std::vector<File*> m_files;
